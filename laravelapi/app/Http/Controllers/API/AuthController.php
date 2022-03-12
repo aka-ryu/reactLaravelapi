@@ -69,12 +69,14 @@ class AuthController extends Controller
             }
             else
             {
-                if($user->role_as == 1)
+                if( $user->role_as == 1)
                 {
+                    $role = 'admin';
                     $token = $user->createToken('token-name', ['server:admin'])->plainTextToken;
                 } 
                 else 
                 {
+                    $role = '';
                     $token = $user->createToken($user->email.'_Token', [''])->plainTextToken;
                 }
 
@@ -83,6 +85,7 @@ class AuthController extends Controller
                     'username'=>$user->name,
                     'token'=>$token,
                     'message'=>'Login Successfully',
+                    'role'=>$role,
                 ]);
             }
         }
